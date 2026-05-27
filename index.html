@@ -5,17 +5,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nửa Trái Tim - 半点心</title>
+<title>Nửa Trái Tim</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
 
-<!-- ✅ FIREBASE COMPAT (ĐÚNG CHO WEB HTML) -->
+<!-- Firebase COMPAT (CHUẨN DUY NHẤT CHO BẠN) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -25,10 +23,9 @@ font-family:'Quicksand',sans-serif;
 
 body{
 background:#edf5ef;
-color:#5f7062;
 }
 
-/* AUTH */
+/* LOGIN */
 #auth{
 position:fixed;
 inset:0;
@@ -36,16 +33,20 @@ display:flex;
 justify-content:center;
 align-items:center;
 background:rgba(0,0,0,.35);
-z-index:999;
 }
 
 .box{
 width:340px;
-background:white;
-padding:30px;
-border-radius:25px;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
+background:#fff;
+padding:28px;
+border-radius:22px;
 text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.box h2{
+margin-bottom:15px;
+color:#5f7d65;
 }
 
 .box input{
@@ -53,7 +54,7 @@ width:100%;
 padding:12px;
 margin:8px 0;
 border-radius:12px;
-border:1px solid #dce9de;
+border:1px solid #ddd;
 outline:none;
 }
 
@@ -64,7 +65,7 @@ margin-top:10px;
 border:none;
 border-radius:12px;
 background:#6e9175;
-color:white;
+color:#fff;
 font-weight:700;
 cursor:pointer;
 }
@@ -72,32 +73,24 @@ cursor:pointer;
 /* MAIN */
 .main{
 display:none;
-padding:20px;
 text-align:center;
+padding:40px 20px;
 }
 
 .title{
 font-size:40px;
 font-weight:700;
 color:#5f7d65;
-margin-top:20px;
 }
 
-.join-btn{
+.btn{
 margin-top:20px;
-padding:12px 25px;
+padding:12px 22px;
 border:none;
 border-radius:999px;
 background:#6e9175;
-color:white;
-font-weight:700;
+color:#fff;
 cursor:pointer;
-}
-
-.footer{
-margin-top:60px;
-font-size:13px;
-color:#8b998e;
 }
 
 </style>
@@ -105,7 +98,7 @@ color:#8b998e;
 
 <body>
 
-<!-- 🔐 LOGIN -->
+<!-- LOGIN -->
 <div id="auth">
   <div class="box">
     <h2>🌿 Nửa Trái Tim</h2>
@@ -118,28 +111,25 @@ color:#8b998e;
   </div>
 </div>
 
-<!-- 🌿 MAIN -->
+<!-- MAIN -->
 <div class="main" id="main">
 
-<div class="title">Nửa Trái Tim</div>
+<div class="title">Nửa Trái Tim 💚</div>
 
-<button class="join-btn" onclick="logout()">Đăng xuất</button>
-
-<div class="footer">
-© Nửa Trái Tim
-</div>
+<button class="btn" onclick="logout()">Đăng xuất</button>
 
 </div>
 
-<!-- 🔥 FIREBASE -->
+<!-- FIREBASE -->
 <script>
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA7_sieDRKYqjT2iVVU-SjSSOYyH-FSowE",
+  authDomain: "nuatraitim-744cf.firebaseapp.com",
+  projectId: "nuatraitim-744cf",
+  storageBucket: "nuatraitim-744cf.firebasestorage.app",
+  messagingSenderId: "83587460220",
+  appId: "1:83587460220:web:5005398d261597b964adf9",
+  measurementId: "G-HQ39YZWYKL"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -169,7 +159,7 @@ function logout(){
   auth.signOut();
 }
 
-/* AUTO CHECK LOGIN */
+/* AUTO UI SWITCH */
 auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("auth").style.display="none";
