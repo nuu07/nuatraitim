@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Firebase SDK (COMPAT - chuẩn cho web tĩnh) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+<!-- ✅ FIREBASE COMPAT (ĐÚNG CHO WEB HTML) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <style>
 
@@ -28,7 +28,7 @@ background:#edf5ef;
 color:#5f7062;
 }
 
-/* ===== AUTH ===== */
+/* AUTH */
 #auth{
 position:fixed;
 inset:0;
@@ -46,11 +46,6 @@ padding:30px;
 border-radius:25px;
 box-shadow:0 15px 40px rgba(0,0,0,.15);
 text-align:center;
-}
-
-.box h2{
-margin-bottom:18px;
-color:#5f7d65;
 }
 
 .box input{
@@ -74,52 +69,22 @@ font-weight:700;
 cursor:pointer;
 }
 
-.small{
-margin-top:10px;
-font-size:12px;
-cursor:pointer;
-color:#7a8a7c;
-}
-
-/* ===== MAIN ===== */
+/* MAIN */
 .main{
 display:none;
 padding:20px;
-}
-
-.header{
 text-align:center;
-margin-top:35px;
-}
-
-.logo{
-width:105px;
-height:105px;
-border-radius:50%;
-object-fit:cover;
-border:5px solid #dce9de;
-box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
 .title{
-margin-top:18px;
-font-size:42px;
+font-size:40px;
 font-weight:700;
 color:#5f7d65;
-}
-
-.sub{
-margin-top:10px;
-font-size:17px;
-letter-spacing:6px;
-color:#91a393;
-}
-
-.join{
 margin-top:20px;
 }
 
 .join-btn{
+margin-top:20px;
 padding:12px 25px;
 border:none;
 border-radius:999px;
@@ -129,15 +94,8 @@ font-weight:700;
 cursor:pointer;
 }
 
-.desc{
-margin-top:30px;
-text-align:center;
-line-height:1.8;
-}
-
 .footer{
 margin-top:60px;
-text-align:center;
 font-size:13px;
 color:#8b998e;
 }
@@ -147,7 +105,7 @@ color:#8b998e;
 
 <body>
 
-<!-- ===== AUTH UI ===== -->
+<!-- 🔐 LOGIN -->
 <div id="auth">
   <div class="box">
     <h2>🌿 Nửa Trái Tim</h2>
@@ -155,41 +113,25 @@ color:#8b998e;
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Mật khẩu">
 
+    <button onclick="signup()">Đăng ký</button>
     <button onclick="login()">Đăng nhập</button>
-    <button onclick="signup()" style="background:#8fb39a">Đăng ký</button>
-
-    <div class="small" onclick="logout()">
-      Thử đăng xuất
-    </div>
   </div>
 </div>
 
-<!-- ===== MAIN WEB ===== -->
+<!-- 🌿 MAIN -->
 <div class="main" id="main">
 
-<div class="header">
-<img class="logo" src="avt.jpg">
-
 <div class="title">Nửa Trái Tim</div>
-<div class="sub">半点心</div>
 
-<div class="join">
 <button class="join-btn" onclick="logout()">Đăng xuất</button>
-</div>
-
-<div class="desc">
-Chào mừng cậu đến với khu vườn nhỏ của mình ✨
-</div>
-
-</div>
 
 <div class="footer">
-© Nửa Trái Tim - 半点心
+© Nửa Trái Tim
 </div>
 
 </div>
 
-<!-- ===== FIREBASE CONFIG ===== -->
+<!-- 🔥 FIREBASE -->
 <script>
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -203,17 +145,17 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-/* ===== SIGN UP ===== */
+/* SIGN UP */
 function signup(){
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   auth.createUserWithEmailAndPassword(email, password)
-  .then(()=> alert("Tạo tài khoản thành công 🌿"))
+  .then(()=> alert("Đăng ký thành công 🌿"))
   .catch(e=> alert(e.message));
 }
 
-/* ===== LOGIN ===== */
+/* LOGIN */
 function login(){
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -222,12 +164,12 @@ function login(){
   .catch(e=> alert(e.message));
 }
 
-/* ===== LOGOUT ===== */
+/* LOGOUT */
 function logout(){
   auth.signOut();
 }
 
-/* ===== AUTO CHECK LOGIN ===== */
+/* AUTO CHECK LOGIN */
 auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("auth").style.display="none";
