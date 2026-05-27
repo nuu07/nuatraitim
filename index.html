@@ -7,103 +7,173 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
-<!-- FIREBASE COMPAT -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <style>
-body{
+
+/* ===== GLOBAL ===== */
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:'Quicksand',sans-serif;
+}
+
+body{
 background:#edf5ef;
 }
 
+/* ===== LOGIN ===== */
 #auth{
 position:fixed;
 inset:0;
 display:flex;
 justify-content:center;
 align-items:center;
-background:rgba(0,0,0,.3);
+background:linear-gradient(135deg,#dce9de,#edf5ef);
 }
 
-.box{
-width:320px;
-background:#fff;
-padding:25px;
+.login-card{
+width:340px;
+padding:30px;
 border-radius:20px;
+background:white;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
 text-align:center;
 }
 
-input{
-width:100%;
-padding:12px;
-margin:6px 0;
-border-radius:10px;
-border:1px solid #ddd;
-}
-
-button{
-width:100%;
-padding:12px;
-margin-top:8px;
-border:none;
-border-radius:10px;
-background:#6e9175;
-color:#fff;
-font-weight:700;
-cursor:pointer;
-}
-
-.main{
-display:none;
-text-align:center;
-padding:40px;
-}
-
-.title{
-font-size:35px;
-font-weight:700;
+.login-card h2{
+margin-bottom:18px;
 color:#5f7d65;
 }
 
+.login-card input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:12px;
+border:1px solid #dce9de;
+outline:none;
+}
+
+.login-card button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#6e9175;
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+.login-card .secondary{
+background:#8fb39a;
+}
+
+/* ===== MAIN ===== */
+.main{
+display:none;
+padding:20px;
+}
+
+.header{
+text-align:center;
+margin-top:30px;
+}
+
+.avatar{
+width:100px;
+height:100px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid #dce9de;
+}
+
+.title{
+font-size:28px;
+font-weight:700;
+color:#5f7d65;
+margin-top:10px;
+}
+
+/* ===== STORIES ===== */
+.grid{
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:15px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+text-align:center;
+cursor:pointer;
+transition:.2s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+}
+
 .logout{
-margin-top:20px;
-padding:10px 20px;
+margin-top:30px;
+padding:12px 20px;
 border:none;
 border-radius:999px;
 background:#6e9175;
-color:#fff;
+color:white;
 cursor:pointer;
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- ===== LOGIN ===== -->
 <div id="auth">
-  <div class="box">
-    <h2>Đăng nhập</h2>
+  <div class="login-card">
+    <h2>🌿 Nửa Trái Tim</h2>
 
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Mật khẩu">
 
-    <button onclick="signup()">Đăng ký</button>
     <button onclick="login()">Đăng nhập</button>
+    <button onclick="signup()" class="secondary">Đăng ký</button>
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ===== HOME ===== -->
 <div class="main" id="main">
-  <div class="title">Nửa Trái Tim 💚</div>
-  <button class="logout" onclick="logout()">Đăng xuất</button>
+
+  <div class="header">
+    <img class="avatar" id="avatar" src="avt.jpg">
+    <div class="title" id="username">Nửa Trái Tim</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">📖 Truyện 1</div>
+    <div class="card">📖 Truyện 2</div>
+    <div class="card">📖 Truyện 3</div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="logout" onclick="logout()">Đăng xuất</button>
+  </div>
+
 </div>
 
-<!-- FIREBASE -->
-<script>
+<!-- ===== FIREBASE CONFIG ===== -->
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+<script>
+  const firebaseConfig = {
   apiKey: "AIzaSyBiOvgiCMOEPDpRDkYTq_icEKDrr31CmdM",
   authDomain: "nuatraitim-new.firebaseapp.com",
   projectId: "nuatraitim-new",
@@ -116,17 +186,17 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-/* SIGN UP */
+/* ===== SIGN UP ===== */
 function signup(){
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   auth.createUserWithEmailAndPassword(email, password)
-  .then(()=> alert("Đăng ký thành công"))
+  .then(()=> alert("Đăng ký thành công 🌿"))
   .catch(e=> alert(e.message));
 }
 
-/* LOGIN */
+/* ===== LOGIN ===== */
 function login(){
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -135,16 +205,20 @@ function login(){
   .catch(e=> alert(e.message));
 }
 
-/* LOGOUT */
+/* ===== LOGOUT ===== */
 function logout(){
   auth.signOut();
 }
 
-/* UI SWITCH */
+/* ===== AUTO SWITCH UI ===== */
 auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("auth").style.display="none";
     document.getElementById("main").style.display="block";
+
+    document.getElementById("username").innerText =
+      user.email.split("@")[0];
+
   }else{
     document.getElementById("auth").style.display="flex";
     document.getElementById("main").style.display="none";
