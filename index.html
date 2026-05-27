@@ -10,6 +10,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<!-- Firebase SDK (COMPAT - chuẩn cho web tĩnh) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+
 <style>
 
 *{
@@ -21,8 +25,66 @@ font-family:'Quicksand',sans-serif;
 
 body{
 background:#edf5ef;
-padding:20px;
 color:#5f7062;
+}
+
+/* ===== AUTH ===== */
+#auth{
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,.35);
+z-index:999;
+}
+
+.box{
+width:340px;
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+text-align:center;
+}
+
+.box h2{
+margin-bottom:18px;
+color:#5f7d65;
+}
+
+.box input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border-radius:12px;
+border:1px solid #dce9de;
+outline:none;
+}
+
+.box button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#6e9175;
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+.small{
+margin-top:10px;
+font-size:12px;
+cursor:pointer;
+color:#7a8a7c;
+}
+
+/* ===== MAIN ===== */
+.main{
+display:none;
+padding:20px;
 }
 
 .header{
@@ -54,138 +116,30 @@ color:#91a393;
 }
 
 .join{
-margin-top:30px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:15px;
-}
-
-.bell{
-width:55px;
-height:55px;
-border-radius:50%;
-background:white;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:24px;
-box-shadow:0 5px 15px rgba(0,0,0,.06);
+margin-top:20px;
 }
 
 .join-btn{
-padding:15px 28px;
+padding:12px 25px;
 border:none;
 border-radius:999px;
 background:#6e9175;
 color:white;
-font-size:17px;
 font-weight:700;
 cursor:pointer;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .desc{
-margin-top:35px;
+margin-top:30px;
 text-align:center;
-font-size:18px;
-line-height:1.9;
-color:#718174;
-}
-
-.filter-box{
-background:white;
-margin-top:45px;
-border-radius:32px;
-padding:28px;
-box-shadow:0 10px 25px rgba(0,0,0,.05);
-}
-
-.filters{
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap;
-}
-
-.filters button{
-padding:13px 22px;
-border:none;
-border-radius:999px;
-background:#edf5ef;
-color:#617566;
-font-weight:700;
-cursor:pointer;
-font-size:15px;
-}
-
-.filters .active{
-background:#6f9275;
-color:white;
-}
-
-.sort{
-margin-top:25px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-flex-wrap:wrap;
-font-weight:700;
-color:#748277;
-}
-
-.sort select{
-padding:12px 18px;
-border:none;
-border-radius:999px;
-background:#edf5ef;
-color:#607465;
-font-weight:700;
-outline:none;
-cursor:pointer;
-}
-
-.grid{
-margin-top:40px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:25px;
-}
-
-.empty{
-background:white;
-padding:45px 30px;
-border-radius:30px;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,.05);
-line-height:2;
-color:#748176;
-font-size:18px;
+line-height:1.8;
 }
 
 .footer{
-margin-top:70px;
-padding-bottom:30px;
+margin-top:60px;
 text-align:center;
-font-size:14px;
+font-size:13px;
 color:#8b998e;
-}
-
-@media(max-width:600px){
-
-.title{
-font-size:35px;
-}
-
-.desc{
-font-size:16px;
-}
-
-.filter-box{
-padding:22px;
-}
-
 }
 
 </style>
@@ -193,29 +147,34 @@ padding:22px;
 
 <body>
 
+<!-- ===== AUTH UI ===== -->
+<div id="auth">
+  <div class="box">
+    <h2>🌿 Nửa Trái Tim</h2>
+
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Mật khẩu">
+
+    <button onclick="login()">Đăng nhập</button>
+    <button onclick="signup()" style="background:#8fb39a">Đăng ký</button>
+
+    <div class="small" onclick="logout()">
+      Thử đăng xuất
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN WEB ===== -->
+<div class="main" id="main">
+
 <div class="header">
+<img class="logo" src="avt.jpg">
 
-<img class="logo"
-src="avt.jpg">
-
-<div class="title">
-Nửa Trái Tim
-</div>
-
-<div class="sub">
-半点心
-</div>
+<div class="title">Nửa Trái Tim</div>
+<div class="sub">半点心</div>
 
 <div class="join">
-
-<div class="bell">
-🔔
-</div>
-
-<button class="join-btn">
-Gia nhập trái tim 🌿
-</button>
-
+<button class="join-btn" onclick="logout()">Đăng xuất</button>
 </div>
 
 <div class="desc">
@@ -224,65 +183,61 @@ Chào mừng cậu đến với khu vườn nhỏ của mình ✨
 
 </div>
 
-<div class="filter-box">
-
-<div class="filters">
-
-<button class="active">
-Tất cả
-</button>
-
-<button>
-Nửa Trái Tim 💚
-</button>
-
-<button>
-Trái Tim Xing Xing ✨
-</button>
-
-</div>
-
-<div class="sort">
-
-<span>
-Sắp xếp:
-</span>
-
-<select>
-
-<option>
-Mặc định
-</option>
-
-<option>
-Tên truyện A-Z
-</option>
-
-<option>
-Mới cập nhật
-</option>
-
-<option>
-Hoàn thành
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="empty">
-Hiện tại chưa có truyện nào được đăng 🌿
-</div>
-
-</div>
-
 <div class="footer">
 © Nửa Trái Tim - 半点心
 </div>
+
+</div>
+
+<!-- ===== FIREBASE CONFIG ===== -->
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+/* ===== SIGN UP ===== */
+function signup(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+  .then(()=> alert("Tạo tài khoản thành công 🌿"))
+  .catch(e=> alert(e.message));
+}
+
+/* ===== LOGIN ===== */
+function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+  .catch(e=> alert(e.message));
+}
+
+/* ===== LOGOUT ===== */
+function logout(){
+  auth.signOut();
+}
+
+/* ===== AUTO CHECK LOGIN ===== */
+auth.onAuthStateChanged(user=>{
+  if(user){
+    document.getElementById("auth").style.display="none";
+    document.getElementById("main").style.display="block";
+  }else{
+    document.getElementById("auth").style.display="flex";
+    document.getElementById("main").style.display="none";
+  }
+});
+</script>
 
 </body>
 </html>
