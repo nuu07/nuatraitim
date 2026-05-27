@@ -21,127 +21,169 @@ font-family:'Quicksand',sans-serif;
 
 body{
 background:#edf5ef;
-color:#4d5c4f;
+padding:20px;
+color:#5f7062;
 }
 
 .header{
-padding:35px 20px;
 text-align:center;
+margin-top:35px;
 }
 
 .logo{
-width:110px;
-height:110px;
+width:105px;
+height:105px;
 border-radius:50%;
 object-fit:cover;
 border:5px solid #dce9de;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
+box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
 .title{
 margin-top:18px;
 font-size:42px;
 font-weight:700;
-color:#5d7a63;
+color:#5f7d65;
 }
 
 .sub{
 margin-top:10px;
 font-size:17px;
 letter-spacing:6px;
-color:#90a293;
+color:#91a393;
+}
+
+.join{
+margin-top:30px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+}
+
+.bell{
+width:55px;
+height:55px;
+border-radius:50%;
+background:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+box-shadow:0 5px 15px rgba(0,0,0,.06);
+}
+
+.join-btn{
+padding:15px 28px;
+border:none;
+border-radius:999px;
+background:#6e9175;
+color:white;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .desc{
-margin-top:25px;
+margin-top:35px;
+text-align:center;
 font-size:18px;
 line-height:1.9;
-color:#6f7d72;
-max-width:700px;
-margin-inline:auto;
+color:#718174;
 }
 
-.menu{
-margin-top:35px;
+.filter-box{
+background:white;
+margin-top:45px;
+border-radius:32px;
+padding:28px;
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.filters{
 display:flex;
 justify-content:center;
 gap:15px;
 flex-wrap:wrap;
 }
 
-.menu a{
-text-decoration:none;
-background:white;
-padding:14px 24px;
+.filters button{
+padding:13px 22px;
+border:none;
 border-radius:999px;
-color:#5f7564;
-font-weight:600;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-transition:.3s;
+background:#edf5ef;
+color:#617566;
+font-weight:700;
+cursor:pointer;
+font-size:15px;
 }
 
-.menu a:hover{
-transform:translateY(-4px);
-background:#dfeee2;
+.filters .active{
+background:#6f9275;
+color:white;
 }
 
-.main-box{
-max-width:900px;
-margin:50px auto;
+.sort{
+margin-top:25px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:12px;
+flex-wrap:wrap;
+font-weight:700;
+color:#748277;
+}
+
+.sort select{
+padding:12px 18px;
+border:none;
+border-radius:999px;
+background:#edf5ef;
+color:#607465;
+font-weight:700;
+outline:none;
+cursor:pointer;
+}
+
+.grid{
+margin-top:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:25px;
+}
+
+.empty{
 background:white;
-padding:40px 30px;
-border-radius:35px;
-box-shadow:0 10px 30px rgba(0,0,0,.05);
+padding:45px 30px;
+border-radius:30px;
 text-align:center;
-}
-
-.main-box h2{
-font-size:34px;
-color:#5c7861;
-margin-bottom:20px;
-}
-
-.main-box p{
-font-size:18px;
+box-shadow:0 10px 25px rgba(0,0,0,.05);
 line-height:2;
-color:#718074;
-}
-
-.note{
-margin-top:30px;
-padding:18px;
-background:#f3faf4;
-border-radius:20px;
-font-size:16px;
-color:#6c7b6f;
-line-height:1.8;
+color:#748176;
+font-size:18px;
 }
 
 .footer{
 margin-top:70px;
-padding:30px;
+padding-bottom:30px;
 text-align:center;
 font-size:14px;
-color:#8a988d;
+color:#8b998e;
 }
 
 @media(max-width:600px){
 
 .title{
-font-size:34px;
-}
-
-.main-box{
-margin:30px 15px;
-padding:30px 20px;
-}
-
-.main-box h2{
-font-size:28px;
+font-size:35px;
 }
 
 .desc{
 font-size:16px;
+}
+
+.filter-box{
+padding:22px;
 }
 
 }
@@ -154,7 +196,7 @@ font-size:16px;
 <div class="header">
 
 <img class="logo"
-src="https://i.pinimg.com/564x/7d/40/cf/7d40cf1d884ecf2f54a6c4db2b7d0d5e.jpg">
+src="avt.jpg">
 
 <div class="title">
 Nửa Trái Tim
@@ -164,46 +206,76 @@ Nửa Trái Tim
 半点心
 </div>
 
+<div class="join">
+
+<div class="bell">
+🔔
+</div>
+
+<button class="join-btn">
+Gia nhập trái tim 🌿
+</button>
+
+</div>
+
 <div class="desc">
-Chào mừng cậu đến với khu vườn nhỏ của mình 🌿
-Nơi lưu giữ những câu chuyện mình yêu thích và muốn chia sẻ.
+Chào mừng cậu đến với khu vườn nhỏ của mình ✨
 </div>
 
-<div class="menu">
+</div>
 
-<a href="#">
-Trang chủ
-</a>
+<div class="filter-box">
 
-<a href="#">
-Danh sách truyện
-</a>
+<div class="filters">
 
-<a href="#">
-Đang edit
-</a>
+<button class="active">
+Tất cả
+</button>
 
-<a href="#">
+<button>
+Nửa Trái Tim 💚
+</button>
+
+<button>
+Trái Tim Xing Xing ✨
+</button>
+
+</div>
+
+<div class="sort">
+
+<span>
+Sắp xếp:
+</span>
+
+<select>
+
+<option>
+Mặc định
+</option>
+
+<option>
+Tên truyện A-Z
+</option>
+
+<option>
+Mới cập nhật
+</option>
+
+<option>
 Hoàn thành
-</a>
+</option>
+
+</select>
 
 </div>
 
 </div>
 
-<div class="main-box">
+<div class="grid">
 
-<h2>
-Chưa có truyện nào được đăng
-</h2>
-
-<p>
-Hiện tại web vẫn đang trong quá trình hoàn thiện.
-Sau này nơi đây sẽ cập nhật các bộ truyện dịch/edit theo sở thích cá nhân.
-</p>
-
-<div class="note">
-Cảm ơn vì đã ghé thăm Nửa Trái Tim ♡
+<div class="empty">
+Hiện tại chưa có truyện nào được đăng 🌿
 </div>
 
 </div>
