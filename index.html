@@ -1,98 +1,81 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Nửa Trái Tim</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
-<!-- Firebase COMPAT (CHUẨN DUY NHẤT CHO BẠN) -->
+<!-- FIREBASE COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Quicksand',sans-serif;
-}
-
 body{
+margin:0;
+font-family:'Quicksand',sans-serif;
 background:#edf5ef;
 }
 
-/* LOGIN */
 #auth{
 position:fixed;
 inset:0;
 display:flex;
 justify-content:center;
 align-items:center;
-background:rgba(0,0,0,.35);
+background:rgba(0,0,0,.3);
 }
 
 .box{
-width:340px;
+width:320px;
 background:#fff;
-padding:28px;
-border-radius:22px;
+padding:25px;
+border-radius:20px;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
-.box h2{
-margin-bottom:15px;
-color:#5f7d65;
-}
-
-.box input{
+input{
 width:100%;
 padding:12px;
-margin:8px 0;
-border-radius:12px;
+margin:6px 0;
+border-radius:10px;
 border:1px solid #ddd;
-outline:none;
 }
 
-.box button{
+button{
 width:100%;
 padding:12px;
-margin-top:10px;
+margin-top:8px;
 border:none;
-border-radius:12px;
+border-radius:10px;
 background:#6e9175;
 color:#fff;
 font-weight:700;
 cursor:pointer;
 }
 
-/* MAIN */
 .main{
 display:none;
 text-align:center;
-padding:40px 20px;
+padding:40px;
 }
 
 .title{
-font-size:40px;
+font-size:35px;
 font-weight:700;
 color:#5f7d65;
 }
 
-.btn{
+.logout{
 margin-top:20px;
-padding:12px 22px;
+padding:10px 20px;
 border:none;
 border-radius:999px;
 background:#6e9175;
 color:#fff;
 cursor:pointer;
 }
-
 </style>
 </head>
 
@@ -101,7 +84,7 @@ cursor:pointer;
 <!-- LOGIN -->
 <div id="auth">
   <div class="box">
-    <h2>🌿 Nửa Trái Tim</h2>
+    <h2>Đăng nhập</h2>
 
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Mật khẩu">
@@ -113,23 +96,19 @@ cursor:pointer;
 
 <!-- MAIN -->
 <div class="main" id="main">
-
-<div class="title">Nửa Trái Tim 💚</div>
-
-<button class="btn" onclick="logout()">Đăng xuất</button>
-
+  <div class="title">Nửa Trái Tim 💚</div>
+  <button class="logout" onclick="logout()">Đăng xuất</button>
 </div>
 
 <!-- FIREBASE -->
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyA7_sieDRKYqjT2iVVU-SjSSOYyH-FSowE",
-  authDomain: "nuatraitim-744cf.firebaseapp.com",
-  projectId: "nuatraitim-744cf",
-  storageBucket: "nuatraitim-744cf.firebasestorage.app",
-  messagingSenderId: "83587460220",
-  appId: "1:83587460220:web:5005398d261597b964adf9",
-  measurementId: "G-HQ39YZWYKL"
+  apiKey: "DÁN API KEY Ở ĐÂY",
+  authDomain: "DÁN AUTH DOMAIN",
+  projectId: "DÁN PROJECT ID",
+  storageBucket: "DÁN STORAGE",
+  messagingSenderId: "DÁN SENDER ID",
+  appId: "DÁN APP ID"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -141,7 +120,7 @@ function signup(){
   const password = document.getElementById("password").value;
 
   auth.createUserWithEmailAndPassword(email, password)
-  .then(()=> alert("Đăng ký thành công 🌿"))
+  .then(()=> alert("Đăng ký thành công"))
   .catch(e=> alert(e.message));
 }
 
@@ -159,7 +138,7 @@ function logout(){
   auth.signOut();
 }
 
-/* AUTO UI SWITCH */
+/* UI SWITCH */
 auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("auth").style.display="none";
